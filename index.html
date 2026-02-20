@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>auditproof.xyz - bad business script</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=VT323&family=Permanent+Marker&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --hot-pink: #ff0080;
+    --neon-cyan: #00ffff;
+    --electric-purple: #cc00ff;
+    --lime: #aaff00;
+    --dark: #0a000f;
+  }
+
+  body {
+    background-color: var(--dark);
+    color: #fff;
+    font-family: 'VT323', monospace;
+    font-size: 18px;
+    overflow-x: hidden;
+    cursor: url('https://cdn.cursors-4u.net/previews/domo-kun-54451e35-32.webp') 32 32, auto !important;
+    min-height: 100vh;
+ 
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+      radial-gradient(1px 1px at 20% 30%, #fff 0%, transparent 100%),
+      radial-gradient(1px 1px at 80% 10%, #fff 0%, transparent 100%),
+      radial-gradient(1px 1px at 50% 70%, #fff 0%, transparent 100%),
+      radial-gradient(1px 1px at 10% 80%, #ff88ff 0%, transparent 100%),
+      radial-gradient(1px 1px at 90% 60%, #88ffff 0%, transparent 100%),
+      radial-gradient(2px 2px at 35% 55%, #ff0080 0%, transparent 100%),
+      radial-gradient(1px 1px at 65% 25%, #cc00ff 0%, transparent 100%);
+    background-size: 300px 300px;
+    z-index: -1;
+    opacity: 0.6;
+    animation: twinkle 4s infinite alternate;
+  }
+  @keyframes twinkle {
+    0% { opacity: 0.4; }
+    100% { opacity: 0.8; }
+  }
+
+  header {
+    text-align: center;
+    padding: 30px 20px 10px;
+  }
+
+  .site-title {
+    font-family: 'Permanent Marker', cursive;
+    font-size: clamp(50px, 10vw, 100px);
+    background: linear-gradient(135deg, var(--hot-pink) 0%, var(--electric-purple) 40%, var(--neon-cyan) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 15px var(--hot-pink)) drop-shadow(0 0 30px var(--electric-purple));
+    animation: title-pulse 2s ease-in-out infinite alternate;
+    display: block;
+    line-height: 1;
+  }
+  @keyframes title-pulse {
+    0% { filter: drop-shadow(0 0 10px var(--hot-pink)) drop-shadow(0 0 20px var(--electric-purple)); }
+    100% { filter: drop-shadow(0 0 25px var(--neon-cyan)) drop-shadow(0 0 50px var(--hot-pink)); }
+  }
+
+  .tagline {
+    font-size: 22px;
+    color: var(--lime);
+    text-shadow: 0 0 10px var(--lime);
+    margin-top: 5px;
+    letter-spacing: 3px;
+    animation: blink-glow 1.5s step-end infinite;
+  }
+  @keyframes blink-glow {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .stars-decoration {
+    font-size: 24px;
+    color: var(--hot-pink);
+    animation: spin 4s linear infinite;
+    display: inline-block;
+    margin: 0 10px;
+  }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  nav {
+    text-align: center;
+    padding: 15px;
+    border-top: 1px solid var(--electric-purple);
+    border-bottom: 1px solid var(--electric-purple);
+    background: rgba(204, 0, 255, 0.1);
+    margin: 10px 0;
+    box-shadow: 0 0 20px rgba(204, 0, 255, 0.3);
+  }
+  nav a {
+    color: var(--neon-cyan);
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 22px;
+    text-shadow: 0 0 8px var(--neon-cyan);
+    transition: all 0.2s;
+    letter-spacing: 2px;
+    border: 1px solid transparent;
+    padding: 3px 10px;
+  }
+  nav a:hover {
+    color: var(--hot-pink);
+    text-shadow: 0 0 15px var(--hot-pink);
+    border-color: var(--hot-pink);
+    background: rgba(255, 0, 128, 0.1);
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 20px;
+    padding: 20px 15px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .sidebar { display: flex; flex-direction: column; gap: 15px; }
+
+  .sidebar-box {
+    border: 2px solid var(--hot-pink);
+    background: rgba(255, 0, 128, 0.05);
+    box-shadow: 0 0 15px rgba(255, 0, 128, 0.4), inset 0 0 10px rgba(255, 0, 128, 0.05);
+    padding: 12px;
+  }
+  .sidebar-box.cyan { border-color: var(--neon-cyan); background: rgba(0, 255, 255, 0.05); box-shadow: 0 0 15px rgba(0, 255, 255, 0.4); }
+  .sidebar-box.purple { border-color: var(--electric-purple); background: rgba(204, 0, 255, 0.05); box-shadow: 0 0 15px rgba(204, 0, 255, 0.4); }
+  .sidebar-box.lime { border-color: var(--lime); background: rgba(170, 255, 0, 0.05); box-shadow: 0 0 15px rgba(170, 255, 0, 0.4); }
+
+  .box-title {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 20px;
+    color: var(--hot-pink);
+    text-shadow: 0 0 10px var(--hot-pink);
+    border-bottom: 1px dashed var(--hot-pink);
+    padding-bottom: 5px;
+    margin-bottom: 8px;
+  }
+  .box-title.cyan { color: var(--neon-cyan); text-shadow: 0 0 10px var(--neon-cyan); border-color: var(--neon-cyan); }
+  .box-title.purple { color: var(--electric-purple); text-shadow: 0 0 10px var(--electric-purple); border-color: var(--electric-purple); }
+  .box-title.lime { color: var(--lime); text-shadow: 0 0 10px var(--lime); border-color: var(--lime); }
+
+  .sidebar-box p { font-size: 16px; line-height: 1.5; }
+  .sidebar-box a { color: var(--lime); text-decoration: none; }
+  .sidebar-box a:hover { text-decoration: underline; color: var(--hot-pink); }
+
+  .visitor-count {
+    font-size: 28px;
+    color: var(--lime);
+    text-align: center;
+    text-shadow: 0 0 10px var(--lime);
+    letter-spacing: 4px;
+    display: block;
+    padding: 5px 0;
+  }
+
+  .online-dot {
+    display: inline-block;
+    width: 10px; height: 10px;
+    background: var(--lime);
+    border-radius: 50%;
+    animation: dot-blink 1s step-end infinite;
+    margin-right: 5px;
+    box-shadow: 0 0 8px var(--lime);
+  }
+  @keyframes dot-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  .main-content { display: flex; flex-direction: column; gap: 20px; }
+
+  .content-box {
+    border: 2px solid var(--electric-purple);
+    background: rgba(204, 0, 255, 0.05);
+    box-shadow: 0 0 20px rgba(204, 0, 255, 0.3);
+    padding: 20px;
+  }
+  .content-box.pink { border-color: var(--hot-pink); background: rgba(255, 0, 128, 0.05); box-shadow: 0 0 20px rgba(255, 0, 128, 0.3); }
+  .content-box.cyan { border-color: var(--neon-cyan); background: rgba(0, 255, 255, 0.03); box-shadow: 0 0 20px rgba(0, 255, 255, 0.3); }
+
+  .content-title {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 32px;
+    color: var(--electric-purple);
+    text-shadow: 0 0 15px var(--electric-purple);
+    margin-bottom: 12px;
+  }
+  .content-title.pink { color: var(--hot-pink); text-shadow: 0 0 15px var(--hot-pink); }
+  .content-title.cyan { color: var(--neon-cyan); text-shadow: 0 0 15px var(--neon-cyan); }
+
+  .content-box p { font-size: 18px; line-height: 1.7; color: #ddd; }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 12px;
+  }
+
+  .feature-card {
+    border: 1px solid var(--hot-pink);
+    padding: 14px 12px;
+    text-align: center;
+    background: rgba(255, 0, 128, 0.08);
+    box-shadow: 0 0 10px rgba(255, 0, 128, 0.3);
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+    cursor: url('https://cdn.cursors-4u.net/previews/domo-jumping-up-and-down-70c3abbc.webp') 32 32, auto !important;
+  }
+  .feature-card:hover {
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    transform: translateY(-3px);
+    cursor: url('https://cdn.cursors-4u.net/previews/domo-jumping-up-and-down-70c3abbc.webp') 32 32, auto !important;
+  }
+  .feature-card.coming-soon {
+    border-style: dashed;
+    border-color: var(--electric-purple);
+    opacity: 0.7;
+    box-shadow: 0 0 10px rgba(204, 0, 255, 0.3);
+  }
+
+  a, button, .copy-btn, nav a, .sidebar-box a, .feature-card {
+  cursor: url('https://cdn.cursors-4u.net/previews/domo-jumping-up-and-down-70c3abbc.webp') 32 32, pointer !important;
+}
+
+  .feature-icon {
+    font-size: 22px;
+    display: block;
+    margin-bottom: 6px;
+    color: var(--hot-pink);
+    text-shadow: 0 0 10px var(--hot-pink);
+    letter-spacing: 1px;
+  }
+  .feature-name {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 20px;
+    color: var(--neon-cyan);
+    text-shadow: 0 0 8px var(--neon-cyan);
+    display: block;
+  }
+  .feature-desc { font-size: 14px; color: #aaa; margin-top: 4px; }
+
+  .soon-badge {
+    display: inline-block;
+    background: var(--electric-purple);
+    color: #fff;
+    font-size: 12px;
+    padding: 1px 8px;
+    margin-top: 5px;
+    box-shadow: 0 0 8px var(--electric-purple);
+    animation: badge-pulse 1.5s ease-in-out infinite;
+    letter-spacing: 1px;
+  }
+  @keyframes badge-pulse {
+    0%, 100% { box-shadow: 0 0 8px var(--electric-purple); }
+    50% { box-shadow: 0 0 20px var(--electric-purple); }
+  }
+
+  .code-block {
+    background: #000;
+    border: 1px solid var(--lime);
+    box-shadow: 0 0 15px rgba(170, 255, 0, 0.3);
+    padding: 15px;
+    margin-top: 12px;
+    position: relative;
+  }
+  pre {
+    font-family: 'VT323', monospace;
+    font-size: 16px;
+    color: var(--neon-cyan);
+    text-shadow: 0 0 5px var(--neon-cyan);
+    white-space: pre-wrap;
+    word-break: break-all;
+    line-height: 1.5;
+  }
+
+  .copy-btn {
+    display: inline-block;
+    margin-top: 10px;
+    background: linear-gradient(135deg, var(--hot-pink), var(--electric-purple));
+    color: #fff;
+    border: none;
+    padding: 8px 25px;
+    font-family: 'Permanent Marker', cursive;
+    font-size: 18px;
+    cursor: url('https://cdn.cursors-4u.net/previews/domo-jumping-up-and-down-70c3abbc.webp') 32 32, auto !important;
+    box-shadow: 0 0 15px var(--hot-pink);
+    transition: all 0.2s;
+    letter-spacing: 2px;
+  }
+  .copy-btn:hover {
+    box-shadow: 0 0 30px var(--neon-cyan);
+    background: linear-gradient(135deg, var(--neon-cyan), var(--electric-purple));
+    color: #000;
+    transform: scale(1.05);
+  }
+
+  .notice {
+    background: linear-gradient(90deg, rgba(255,0,128,0.2), rgba(204,0,255,0.2));
+    border-left: 4px solid var(--hot-pink);
+    border-right: 4px solid var(--electric-purple);
+    padding: 10px 15px;
+    font-size: 18px;
+    text-align: center;
+    color: #fff;
+    box-shadow: 0 0 15px rgba(255, 0, 128, 0.2);
+  }
+  .notice strong {
+    color: var(--hot-pink);
+    text-shadow: 0 0 8px var(--hot-pink);
+    font-family: 'Permanent Marker', cursive;
+    font-size: 22px;
+  }
+
+  footer {
+    text-align: center;
+    padding: 25px;
+    margin-top: 20px;
+    border-top: 2px solid var(--hot-pink);
+    box-shadow: 0 -5px 20px rgba(255, 0, 128, 0.2);
+    background: rgba(255, 0, 128, 0.05);
+    font-size: 16px;
+    color: #888;
+  }
+  footer a { color: var(--neon-cyan); text-decoration: none; }
+  .footer-logo {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 28px;
+    background: linear-gradient(135deg, var(--hot-pink), var(--neon-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: var(--dark); }
+  ::-webkit-scrollbar-thumb { background: var(--hot-pink); box-shadow: 0 0 8px var(--hot-pink); }
+
+  .float-stars {
+    position: fixed;
+    pointer-events: none;
+    z-index: 999;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    overflow: hidden;
+  }
+  .fstar {
+    position: absolute;
+    animation: float-up linear infinite;
+    opacity: 0;
+  }
+  @keyframes float-up {
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 0.7; }
+    100% { transform: translateY(-50px) rotate(360deg); opacity: 0; }
+  }
+
+  @media (max-width: 600px) {
+    .two-col { grid-template-columns: 1fr; }
+    .features-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="float-stars" id="floatStars"></div>
+
+<header>
+  <span class="stars-decoration">✦</span>
+  <span class="site-title">auditproof.xyz</span>
+  <span class="stars-decoration">✦</span>
+  <div class="tagline">// we try to be different xoxo //</div>
+</header>
+
+<nav>
+  <a href="#">[ home ]</a>
+  <a href="#">✦ features</a>
+  <a href="#">[ get script ]</a>
+  <a href="#">[ changelog ]</a>
+  <a href="#" target="_blank">[ github ]</a>
+</nav>
+
+<div class="notice">
+  <strong>!! NOTICE !!</strong> &nbsp;— auditproof is 100% open source & free. if someone is selling it ur getting scammed lol x
+</div>
+
+<div class="two-col">
+
+  <div class="sidebar">
+
+    <div class="sidebar-box lime">
+      <div class="box-title lime">★ visitors</div>
+      <span class="visitor-count" id="visitorCount">-1</span>
+      <p style="text-align:center; font-size:14px; color: #aaa;">since launch 2026</p>
+    </div>
+
+    <div class="sidebar-box cyan">
+      <div class="box-title cyan">[ status ]</div>
+      <p><span class="online-dot"></span> <span style="color:var(--lime)">ONLINE</span></p>
+      <p style="margin-top:6px; font-size:15px;">Version: <span style="color:var(--neon-cyan)">v1.3.7</span></p>
+      <p style="font-size:15px;">Game: <span style="color:var(--hot-pink)">Bad Business (✓)</span></p>
+      <p style="font-size:15px;">PF: <span style="color:var(--electric-purple)">coming soon...</span></p>
+    </div>
+
+    <div class="sidebar-box">
+      <div class="box-title">[ links ]</div>
+      <p>
+        <a href="#">&gt; github repo</a><br><br>
+        <a href="#">&gt; discord server</a><br><br>
+        <a href="#">&gt; report bug</a><br><br>
+        <a href="#">&gt; suggest feature</a>
+      </p>
+    </div>
+
+    <div class="sidebar-box purple">
+      <div class="box-title purple">[ credits ]</div>
+      <p style="font-size: 15px; line-height: 1.8;">
+        dev: <span style="color:var(--hot-pink)">auditproof</span><br>
+        design: <span style="color:var(--neon-cyan)">noah (iw7q)</span><br>
+        testers: <span style="color:var(--lime)">the gng &lt;3</span><br>
+        u: <span style="color:var(--electric-purple)">thx 4 using!! ♥</span>
+      </p>
+    </div>
+
+    <div class="sidebar-box">
+      <div class="box-title">[ last updated ]</div>
+      <p style="font-size: 15px; color: var(--lime)">Feb 18 2025</p>
+      <p style="font-size: 14px; color:#888; margin-top:4px;">fixed aimbot fov circle lag<br>added new esp colors</p>
+    </div>
+
+  </div>
+
+  <div class="main-content">
+
+    <div class="content-box pink">
+      <div class="content-title pink">✦ what is auditproof?</div>
+      <p>
+        auditproof is a free &amp; open source roblox script for <strong style="color:var(--hot-pink)">Bad Business</strong> with <strong style="color:var(--neon-cyan)">Phantom Forces</strong> support coming rlly soon!!
+        <br><br>
+        no key system. no discord requirement. no paywalls. just paste and play xoxo ♥ the script is fully open source so u can literally see every line of code on our github. we are NOT sketchy we promise lmaooo
+        <br><br>
+        made for the peeps who just wanna have fun without getting blinded by 50 different keysystem popups :/
+      </p>
+    </div>
+
+    <div class="content-box">
+      <div class="content-title">✦ features</div>
+      <div class="features-grid">
+
+        <div class="feature-card">
+          <span class="feature-icon">( o_o )</span>
+          <span class="feature-name">ESP</span>
+          <div class="feature-desc">see players thru walls. box, skeleton, health bar, name tags. fully customizable colors</div>
+        </div>
+
+        <div class="feature-card">
+          <span class="feature-icon">( -|- )</span>
+          <span class="feature-name">Aimbot</span>
+          <div class="feature-desc">silent aim, fov circle, prediction, smoothing slider. snaps to head or body</div>
+        </div>
+
+        <div class="feature-card">
+          <span class="feature-icon">[ 3rd ]</span>
+          <span class="feature-name">3rd Person</span>
+          <div class="feature-desc">smooth 3rd person camera with toggle. adjustable distance & angle</div>
+        </div>
+
+        <div class="feature-card coming-soon">
+          <span class="feature-icon" style="color:var(--electric-purple); text-shadow: 0 0 8px var(--electric-purple); opacity:0.7">( o_o )</span>
+          <span class="feature-name" style="color:var(--electric-purple); text-shadow: 0 0 8px var(--electric-purple)">PF ESP</span>
+          <div class="feature-desc">phantom forces esp support</div>
+          <span class="soon-badge">COMING SOON</span>
+        </div>
+
+        <div class="feature-card coming-soon">
+          <span class="feature-icon" style="color:var(--electric-purple); text-shadow: 0 0 8px var(--electric-purple); opacity:0.7">( -|- )</span>
+          <span class="feature-name" style="color:var(--electric-purple); text-shadow: 0 0 8px var(--electric-purple)">PF Aimbot</span>
+          <div class="feature-desc">phantom forces aimbot</div>
+          <span class="soon-badge">COMING SOON</span>
+        </div>
+
+        <div class="feature-card">
+          <span class="feature-icon">[ cfg ]</span>
+          <span class="feature-name">UI Config</span>
+          <div class="feature-desc">fully themed gui. save ur settings. drag anywhere</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="content-box cyan">
+      <div class="content-title cyan">[ get the script ]</div>
+      <p>just paste this into ur executor (anything thats not xeno or solara loll):</p>
+      <div class="code-block">
+        <pre>loadstring(game:HttpGet("https://auditproof.xyz/loader.lua"))()</pre>
+      </div>
+      <button class="copy-btn" onclick="copyScript()">[ copy script ]</button>
+      <p style="margin-top: 12px; font-size: 16px; color: #888;">
+        !! make sure ur executor has require!!!!
+      </p>
+    </div>
+
+    <div class="content-box">
+      <div class="content-title">[ changelog ]</div>
+      <p style="color: var(--lime); font-size: 17px; margin-bottom: 8px;">✦ v1.3.7 — latest</p>
+      <p style="font-size: 16px; line-height: 1.8; color: #ccc;">
+        — fixed aimbot stuttering on low fps<br>
+        — added fov circle color option<br>
+        — esp health bar now shows shield too<br>
+        — optimized render loop (less lag!!)<br>
+        — phantom forces framework 30% done ;)
+      </p>
+      <p style="color: var(--electric-purple); font-size: 17px; margin: 12px 0 8px;">✦ v1.3.0</p>
+      <p style="font-size: 16px; line-height: 1.8; color: #ccc;">
+        — added 3rd person camera to Bad Business<br>
+      </p>
+    </div>
+
+    <div class="content-box pink">
+      <div class="content-title pink">[ faq ]</div>
+      <p style="font-size: 17px; line-height: 2; color: #ddd;">
+        <span style="color:var(--hot-pink)">★ is this safe?</span> — its open source. check the code urself. we r not ratterz &lt;3<br>
+        <span style="color:var(--hot-pink)">★ will i get banned?</span> — use at ur own risk obv lol<br>
+        <span style="color:var(--hot-pink)">★ what executor?</span> — anything w require and at least a little bit of sUNC<br>
+        <span style="color:var(--hot-pink)">★ when is PF support?</span> — SOON !! we r working rly hard on it xoxo<br>
+        <span style="color:var(--hot-pink)">★ can i contribute?</span> — yes!! pull requests open on github xoxo
+      </p>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <span class="footer-logo">auditproof.xyz</span>
+  <p>made with ♥ for the roblox exp community &nbsp;·&nbsp; 100% open source forever</p>
+  <p style="margin-top:8px; font-size:14px;">not affiliated with roblox corporation &nbsp;·&nbsp; use at ur own risk xoxo ♥</p>
+  <p style="margin-top:10px; font-size:13px; color: #555;">&lt;/3 stay scene &lt;/3 &nbsp;★&nbsp; emo 4 ever &nbsp;★&nbsp; &lt;/3 stay scene &lt;/3</p>
+</footer>
+
+<script>
+  const container = document.getElementById('floatStars');
+  const symbols = ['★', '✦', '♥', '✿', '☆', '♦', '❋', '✩'];
+  const colors = ['#ff0080', '#cc00ff', '#00ffff', '#aaff00', '#ff66cc'];
+
+  for (let i = 0; i < 18; i++) {
+    const star = document.createElement('div');
+    star.classList.add('fstar');
+    star.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+    star.style.left = Math.random() * 100 + 'vw';
+    star.style.color = colors[Math.floor(Math.random() * colors.length)];
+    star.style.fontSize = (12 + Math.random() * 18) + 'px';
+    star.style.animationDuration = (6 + Math.random() * 10) + 's';
+    star.style.animationDelay = (Math.random() * 10) + 's';
+    star.style.textShadow = '0 0 8px ' + star.style.color;
+    container.appendChild(star);
+  }
+
+  let count = -1;
+  setInterval(() => {
+    if (Math.random() < 0.3) {
+      count += Math.floor(Math.random() * 3) + 1;
+      document.getElementById('visitorCount').textContent = count.toLocaleString().padStart(7, '0');
+    }
+  }, 5000);
+
+  function copyScript() {
+    const code = 'loadstring(game:HttpGet("https://auditproof.xyz/loader.lua"))()';
+    navigator.clipboard.writeText(code).then(() => {
+      const btn = document.querySelector('.copy-btn');
+      const original = btn.textContent;
+      btn.textContent = '[ copied!! xoxo ]';
+      btn.style.background = 'linear-gradient(135deg, #aaff00, #00ffff)';
+      btn.style.color = '#000';
+      setTimeout(() => {
+        btn.textContent = original;
+        btn.style.background = '';
+        btn.style.color = '';
+      }, 2000);
+    });
+  }
+</script>
+</body>
+</html>
