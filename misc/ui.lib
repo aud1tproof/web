@@ -14,6 +14,17 @@ local menu           = game:GetObjects("rbxassetid://12702460854")[1]
 menu.bg.Position     = UDim2.new(0.5,-menu.bg.Size.X.Offset/2,0.5,-menu.bg.Size.Y.Offset/2)
 menu.Parent          = game:GetService("CoreGui")
 menu.bg.pre.Text = 'Auditproof<font color="#c375ae">.xyz</font> ' .. gname .. '| executor: ' .. getexecutorname()
+menu.IgnoreGuiInset = true
+
+local bgDim = Instance.new("Frame")
+bgDim.Name = "DimBackground"
+bgDim.Size = UDim2.new(1,0,1,0)
+bgDim.BackgroundColor3 = Color3.new(0,0,0)
+bgDim.BackgroundTransparency = 0.4
+bgDim.BorderSizePixel = 0
+bgDim.ZIndex = -10             
+bgDim.Parent = menu              
+
 local library = {cheatname = "";ext = "";gamename = "";colorpicking = false;tabbuttons = {};tabs = {};options = {};flags = {};scrolling = false;notifyText = Drawing.new("Text");playing = false;multiZindex = 200;toInvis = {};libColor = Color3.fromRGB(240, 142, 214);disabledcolor = Color3.fromRGB(233, 0, 0);blacklisted = {Enum.KeyCode.W,Enum.KeyCode.A,Enum.KeyCode.S,Enum.KeyCode.D,Enum.UserInputType.MouseMovement}}
 
 local bgStroke = Instance.new("UIStroke")
