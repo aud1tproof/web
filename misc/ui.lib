@@ -675,6 +675,189 @@ function library:addTab(name)
                 main.BorderColor3 = Color3.fromRGB(60, 60, 60)
 			end)
         end
+
+function group:addGifPlayer(args)
+    if not args.url or not args.frameW or not args.frameH
+    or not args.cols or not args.totalFrames then
+        return warn("⚠️ incorrect arguments ⚠️ - addGifPlayer missing required args")
+    end
+
+    local DISPLAY = math.min(args.displaySize or 195, 195)
+    local BLOCK_H = 16 + DISPLAY + 22 + 12
+
+    groupbox.Size += UDim2.new(0, 0, 0, BLOCK_H)
+
+    local gifframe = Instance.new("Frame")
+    gifframe.Name        = "gifframe"
+    gifframe.Parent      = grouper
+    gifframe.BackgroundTransparency = 1
+    gifframe.BorderSizePixel = 0
+    gifframe.Size        = UDim2.new(1, 0, 0, BLOCK_H)
+
+    local titleLabel = Instance.new("TextLabel")
+    titleLabel.Parent           = gifframe
+    titleLabel.BackgroundTransparency = 1
+    titleLabel.BorderSizePixel  = 0
+    titleLabel.Position         = UDim2.new(0.03, 0, 0, 2)
+    titleLabel.Size             = UDim2.new(0, 130, 0, 14)
+    titleLabel.Font             = Enum.Font.GothamBold
+    titleLabel.TextSize         = 12
+    titleLabel.TextColor3       = library.libColor
+    titleLabel.TextStrokeTransparency = 0
+    titleLabel.TextXAlignment   = Enum.TextXAlignment.Left
+    titleLabel.Text             = (args.label or "GIF Player")
+
+    local frameCountLabel = Instance.new("TextLabel")
+    frameCountLabel.Parent           = gifframe
+    frameCountLabel.BackgroundTransparency = 1
+    frameCountLabel.BorderSizePixel  = 0
+    frameCountLabel.Position         = UDim2.new(1, -52, 0, 2)
+    frameCountLabel.Size             = UDim2.new(0, 48, 0, 14)
+    frameCountLabel.Font             = Enum.Font.Code
+    frameCountLabel.TextSize         = 12
+    frameCountLabel.TextColor3       = Color3.fromRGB(144, 144, 144)
+    frameCountLabel.TextStrokeTransparency = 0
+    frameCountLabel.TextXAlignment   = Enum.TextXAlignment.Right
+    frameCountLabel.Text             = "1 / " .. args.totalFrames
+
+    local imgBg = Instance.new("Frame")
+    imgBg.Name             = "imgBg"
+    imgBg.Parent           = gifframe
+    imgBg.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+    imgBg.BorderColor3     = Color3.fromRGB(60, 60, 60)
+    imgBg.BorderSizePixel  = 2
+    imgBg.Position         = UDim2.new(0.5, -(DISPLAY / 2), 0, 18)
+    imgBg.Size             = UDim2.new(0, DISPLAY, 0, DISPLAY)
+
+    local imgLabel = Instance.new("ImageLabel")
+    imgLabel.Name              = "imgLabel"
+    imgLabel.Parent            = imgBg
+    imgLabel.BackgroundTransparency = 1
+    imgLabel.BorderSizePixel   = 0
+    imgLabel.Size              = UDim2.new(1, 0, 1, 0)
+    imgLabel.ScaleType         = Enum.ScaleType.Stretch
+    imgLabel.Image             = ""   -- filled after download
+    imgLabel.ImageRectSize     = Vector2.new(args.frameW, args.frameH)
+    imgLabel.ImageRectOffset   = Vector2.new(0, 0)
+
+    local loadLabel = Instance.new("TextLabel")
+    loadLabel.Parent               = imgBg
+    loadLabel.BackgroundTransparency = 1
+    loadLabel.BorderSizePixel      = 0
+    loadLabel.Size                 = UDim2.new(1, 0, 1, 0)
+    loadLabel.Font                 = Enum.Font.Code
+    loadLabel.TextSize             = 12
+    loadLabel.TextColor3           = Color3.fromRGB(144, 144, 144)
+    loadLabel.TextStrokeTransparency = 0
+    loadLabel.Text                 = "loading..."
+
+    local ctrlY = 18 + DISPLAY + 6
+
+    -- helper to make a small styled button
+    local function makeCtrlBtn(xOffset, w, label)
+        local bg = Instance.new("Frame")
+        bg.Parent           = gifframe
+        bg.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+        bg.BorderColor3     = Color3.fromRGB(60, 60, 60)
+        bg.BorderSizePixel  = 2
+        bg.Position         = UDim2.new(0, xOffset, 0, ctrlY)
+        bg.Size             = UDim2.new(0, w, 0, 16)
+
+        local btn = Instance.new("TextButton")
+        btn.Parent               = bg
+        btn.BackgroundTransparency = 1
+        btn.BorderSizePixel      = 0
+        btn.Size                 = UDim2.new(1, 0, 1, 0)
+        btn.Font                 = Enum.Font.GothamBold
+        btn.TextSize             = 11
+        btn.TextColor3           = Color3.fromRGB(200, 200, 200)
+        btn.TextStrokeTransparency = 0
+        btn.Text                 = label
+
+        btn.MouseEnter:Connect(function() bg.BorderColor3 = library.libColor end)
+        btn.MouseLeave:Connect(function() bg.BorderColor3 = Color3.fromRGB(60, 60, 60) end)
+
+        return btn, bg
+    end
+
+    local OFFSET = math.floor((213 - DISPLAY) / 2)
+    local playBtn,  playBg  = makeCtrlBtn(OFFSET,            62, "⏸ Pause")
+    local prevBtn,  prevBg  = makeCtrlBtn(OFFSET + 66,       28, "◀")
+    local nextBtn,  nextBg  = makeCtrlBtn(OFFSET + 98,       28, "▶")
+
+    local fpsLabel = Instance.new("TextLabel")
+    fpsLabel.Parent               = gifframe
+    fpsLabel.BackgroundTransparency = 1
+    fpsLabel.BorderSizePixel      = 0
+    fpsLabel.Position             = UDim2.new(0, OFFSET + 130, 0, ctrlY)
+    fpsLabel.Size                 = UDim2.new(0, 55, 0, 16)
+    fpsLabel.Font                 = Enum.Font.Code
+    fpsLabel.TextSize             = 11
+    fpsLabel.TextColor3           = Color3.fromRGB(144, 144, 144)
+    fpsLabel.TextStrokeTransparency = 0
+    fpsLabel.TextXAlignment       = Enum.TextXAlignment.Right
+    fpsLabel.Text                 = (args.fps or 8) .. " FPS"
+
+    local currentFrame = 0
+    local isPlaying    = true
+    local fps          = args.fps or 8
+    local COLS         = args.cols
+    local TOTAL        = args.totalFrames
+    local FW           = args.frameW
+    local FH           = args.frameH
+
+    local function setFrame(index)
+        local col = index % COLS
+        local row = math.floor(index / COLS)
+        imgLabel.ImageRectOffset = Vector2.new(col * FW, row * FH)
+        frameCountLabel.Text     = (index + 1) .. " / " .. TOTAL
+    end
+
+    task.spawn(function()
+        local ok, result = pcall(function()
+            local path = "gifplayer_" .. tostring(tick()) .. ".png"
+            writefile(path, game:HttpGet(args.url))
+            return getcustomasset(path)
+        end)
+        if ok then
+            imgLabel.Image = result
+            loadLabel.Visible = false
+            setFrame(0)
+        else
+            loadLabel.Text      = "failed to load"
+            loadLabel.TextColor3 = Color3.fromRGB(220, 60, 60)
+        end
+    end)
+
+    task.spawn(function()
+        while gifframe.Parent do
+            if isPlaying and imgLabel.Image ~= "" then
+                task.wait(1 / fps)
+                currentFrame = (currentFrame + 1) % TOTAL
+                setFrame(currentFrame)
+            else
+                task.wait(0.05)
+            end
+        end
+    end)
+
+    playBtn.MouseButton1Click:Connect(function()
+        isPlaying       = not isPlaying
+        playBtn.Text    = isPlaying and "⏸ Pause" or "▶ Play"
+        playBg.BorderColor3 = Color3.fromRGB(60, 60, 60)
+    end)
+
+    prevBtn.MouseButton1Click:Connect(function()
+        currentFrame = (currentFrame - 1 + TOTAL) % TOTAL
+        setFrame(currentFrame)
+    end)
+
+    nextBtn.MouseButton1Click:Connect(function()
+        currentFrame = (currentFrame + 1) % TOTAL
+        setFrame(currentFrame)
+    end)
+end
+
 function group:addSlider(args,sub)
     if not args.flag or not args.max then return warn("⚠️ incorrect arguments ⚠️") end
     groupbox.Size += UDim2.new(0, 0, 0, 30)
