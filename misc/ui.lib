@@ -13,7 +13,7 @@ local gname = " | " .. getgenv().gamename
 local menu           = game:GetObjects("rbxassetid://12702460854")[1]
 menu.bg.Position     = UDim2.new(0.5,-menu.bg.Size.X.Offset/2,0.5,-menu.bg.Size.Y.Offset/2)
 menu.Parent          = game:GetService("CoreGui")
-menu.bg.pre.Text = 'Auditproof<font color="#c375ae">.xyz</font> ' .. gname .. '| executor: ' .. getexecutorname()
+menu.bg.pre.Text = 'website that i cant show in xeno <font color="#c375ae">.xyz</font> ' .. gname .. '| executor: ' .. getexecutorname()
 menu.IgnoreGuiInset = true
 
 local bgDim = Instance.new("Frame")
@@ -857,7 +857,8 @@ function group:addGifPlayer(args)
         setFrame(currentFrame)
     end)
 
-  local controller = {}
+    -- (keep all existing code, just add this before the final `end`)
+    local controller = {}
     function controller:setGif(cfg)
         -- update state variables
         fps    = cfg.fps or 8
