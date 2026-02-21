@@ -856,6 +856,44 @@ function group:addGifPlayer(args)
         currentFrame = (currentFrame + 1) % TOTAL
         setFrame(currentFrame)
     end)
+
+  local controller = {}
+    function controller:setGif(cfg)
+        -- update state variables
+        fps    = cfg.fps or 8
+        COLS   = cfg.cols
+        TOTAL  = cfg.totalFrames
+        FW     = cfg.frameW
+        FH     = cfg.frameH
+        currentFrame = 0
+
+        -- update UI
+        titleLabel.Text          = cfg.label or "GIF Player"
+        frameCountLabel.Text     = "1 / " .. TOTAL
+        fpsLabel.Text            = fps .. " FPS"
+        imgLabel.ImageRectSize   = Vector2.new(FW, FH)
+        imgLabel.ImageRectOffset = Vector2.new(0, 0)
+        imgLabel.Image           = ""
+        loadLabel.Text           = "loading..."
+        loadLabel.Visible        = true
+
+        task.spawn(function()
+            local ok, result = pcall(function()
+                local path = "gifplayer_" .. tostring(tick()) .. ".png"
+                writefile(path, game:HttpGet(cfg.url))
+                return getcustomasset(path)
+            end)
+            if ok then
+                imgLabel.Image  = result
+                loadLabel.Visible = false
+                setFrame(0)
+            else
+                loadLabel.Text       = "failed to load"
+                loadLabel.TextColor3 = Color3.fromRGB(220, 60, 60)
+            end
+        end)
+    end
+    return controller
 end
 
 function group:addSlider(args,sub)
